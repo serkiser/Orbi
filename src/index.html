@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Personal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">✦</div>
+      <span class="brand-name">MySpace</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-section="principal">
+        <span class="nav-icon">◈</span>
+        <span>Principal</span>
+      </a>
+      <a href="#" class="nav-item" data-section="gamificacion">
+        <span class="nav-icon">⬡</span>
+        <span>Gamificación</span>
+      </a>
+      <a href="#" class="nav-item" data-section="ideas">
+        <span class="nav-icon">◎</span>
+        <span>Ideas</span>
+      </a>
+      <a href="#" class="nav-item" data-section="proyectos">
+        <span class="nav-icon">⬜</span>
+        <span>Proyectos</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-toggle" id="themeToggle" title="Cambiar tema">
+        <span class="theme-icon" id="themeIcon">☀</span>
+        <span id="themeLabel">Modo claro</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- SECCIÓN: PRINCIPAL -->
+    <section class="section active" id="section-principal">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">Principal</h1>
+          <p class="section-subtitle">Vista general de tus proyectos</p>
+        </div>
+      </div>
+
+      <div class="projects-group">
+        <h2 class="group-label">Proyectos Principales</h2>
+        <div class="cards-grid" id="main-principal-cards">
+          <!-- Cards generadas por JS -->
+        </div>
+      </div>
+
+      <div class="projects-group">
+        <h2 class="group-label">Proyectos Secundarios</h2>
+        <div class="cards-grid" id="main-secondary-cards">
+          <!-- Cards generadas por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: GAMIFICACIÓN -->
+    <section class="section" id="section-gamificacion">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">Gamificación</h1>
+          <p class="section-subtitle">Tu progreso y logros acumulados</p>
+        </div>
+        <div class="xp-badge">
+          <span class="xp-total-label">XP Total</span>
+          <span class="xp-total-value" id="totalXP">0</span>
+        </div>
+      </div>
+
+      <div class="xp-add-row">
+        <input type="text" class="xp-input" id="xpText" placeholder="Describe tu logro..." />
+        <input type="number" class="xp-input xp-input-num" id="xpAmount" placeholder="XP" min="1" />
+        <button class="btn-primary" id="addXpBtn">+ Añadir</button>
+      </div>
+
+      <div class="xp-table-wrapper">
+        <table class="xp-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Logro</th>
+              <th>XP Ganado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="xpTableBody">
+            <!-- Filas generadas por JS -->
+          </tbody>
+        </table>
+        <div class="empty-state" id="xpEmpty">
+          <span>⬡</span>
+          <p>Añade tu primer logro para comenzar</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: IDEAS -->
+    <section class="section" id="section-ideas">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">Ideas</h1>
+          <p class="section-subtitle">Tu banco de ideas y conceptos</p>
+        </div>
+        <button class="btn-primary" id="addIdeaBtn">
+          <span>✕</span> Nueva Idea
+        </button>
+      </div>
+
+      <div class="ideas-grid" id="ideasGrid">
+        <!-- Cards generadas por JS -->
+      </div>
+      <div class="empty-state" id="ideasEmpty">
+        <span>◎</span>
+        <p>Pulsa el botón para añadir tu primera idea</p>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: PROYECTOS -->
+    <section class="section" id="section-proyectos">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">Proyectos</h1>
+          <p class="section-subtitle">Gestión y seguimiento de proyectos</p>
+        </div>
+        <div class="btn-group">
+          <button class="btn-secondary" id="addCategoryBtn">⊕ Categoría</button>
+          <button class="btn-primary" id="addProjectBtn">+ Proyecto</button>
+        </div>
+      </div>
+
+      <div id="projectsContainer">
+        <!-- Categorías y proyectos generados por JS -->
+      </div>
+      <div class="empty-state" id="projectsEmpty">
+        <span>⬜</span>
+        <p>Crea una categoría para empezar a organizar tus proyectos</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: NUEVA IDEA -->
+  <div class="modal-overlay" id="ideaModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Nueva Idea</h2>
+        <button class="modal-close" data-modal="ideaModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" id="ideaName" placeholder="Nombre de la idea..." />
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea id="ideaDesc" placeholder="Describe tu idea..." rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Categoría</label>
+          <input type="text" id="ideaCategory" placeholder="ej. Tecnología, Arte, Negocio..." />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" data-modal="ideaModal">Cancelar</button>
+        <button class="btn-primary" id="saveIdeaBtn">Guardar Idea</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: NUEVA CATEGORÍA -->
+  <div class="modal-overlay" id="categoryModal">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h2>Nueva Categoría</h2>
+        <button class="modal-close" data-modal="categoryModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nombre de la categoría</label>
+          <input type="text" id="categoryName" placeholder="ej. Desarrollo, Diseño, Marketing..." />
+        </div>
+        <div class="form-group">
+          <label>Color</label>
+          <div class="color-picker-row">
+            <div class="color-option selected" data-color="#7C3AED" style="background:#7C3AED"></div>
+            <div class="color-option" data-color="#2563EB" style="background:#2563EB"></div>
+            <div class="color-option" data-color="#059669" style="background:#059669"></div>
+            <div class="color-option" data-color="#DC2626" style="background:#DC2626"></div>
+            <div class="color-option" data-color="#D97706" style="background:#D97706"></div>
+            <div class="color-option" data-color="#DB2777" style="background:#DB2777"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" data-modal="categoryModal">Cancelar</button>
+        <button class="btn-primary" id="saveCategoryBtn">Crear Categoría</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: NUEVO PROYECTO -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h2>Nuevo Proyecto</h2>
+        <button class="modal-close" data-modal="projectModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Título</label>
+            <input type="text" id="projectTitle" placeholder="Título del proyecto..." />
+          </div>
+          <div class="form-group">
+            <label>Temática</label>
+            <input type="text" id="projectTheme" placeholder="ej. Web, Mobile, IA..." />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Categoría</label>
+          <select id="projectCategory">
+            <option value="">— Selecciona una categoría —</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tipo</label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="projectType" value="principal" checked /> Principal
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="projectType" value="secundario" /> Secundario
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea id="projectDesc" placeholder="Describe el proyecto..." rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Pasos a seguir</label>
+          <div id="stepsContainer">
+            <div class="step-row">
+              <input type="text" class="step-input" placeholder="Paso 1..." />
+              <button class="step-remove">✕</button>
+            </div>
+          </div>
+          <button class="btn-add-step" id="addStepBtn">+ Añadir paso</button>
+        </div>
+        <div class="form-group">
+          <label>Etiquetas <span class="label-hint">(separadas por coma)</span></label>
+          <input type="text" id="projectTags" placeholder="ej. React, API, MVP..." />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" data-modal="projectModal">Cancelar</button>
+        <button class="btn-primary" id="saveProjectBtn">Guardar Proyecto</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
